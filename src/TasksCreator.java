@@ -7,7 +7,7 @@ public class TasksCreator {
         System.out.print("What task you want to add?");
         String task = sc.next();
 
-        if(task.length() < 1 ) {
+        if (task.length() < 1) {
             System.out.println("Task inválida!");
             createTask(tasksList);
         } else {
