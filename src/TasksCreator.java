@@ -5,7 +5,8 @@ public class TasksCreator {
     public void createTask(String[] tasksList) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Write a task: ");
-        String task = sc.next();
+        String userInput = sc.nextLine();
+        String task = userInput.trim();
 
         if (task.length() < 1) {
             System.out.println("Invalid task!");

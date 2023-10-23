@@ -49,7 +49,7 @@ public class TaskManager {
                     checkListOfTasks();
                     break;
                 case 3:
-                    tasksEditor.editTask(tasksDrawer);
+                    tasksEditor.editTask(tasksDrawer, this);
                     break;
                 case 4:
                     tasksSort.sortTasks(tasksDrawer);
@@ -115,8 +115,8 @@ public class TaskManager {
                     System.out.println("Invalid choice!");
                     break;
             }
-        } else {
-            System.out.println("Wrong password!");
+        } else  {
+            System.out.println("\u001b[1m\u001b[31m Wrong password \u001b[0m");
             admin();
         }
     }
@@ -139,7 +139,7 @@ public class TaskManager {
             case 3:
                 break;
             default:
-                System.out.println("Invalid choice.");
+                System.out.println("\u001b[1m\u001b[31m Invalid choice. \u001b[0m");
                 removeTask();
                 break;
         }
@@ -162,7 +162,7 @@ public class TaskManager {
             case 3:
                 startTaskManager();
             default:
-                System.out.println("Invalid choice!");
+                System.out.println("\u001b[1m\u001b[31m Invalid choice. \u001b[0m");
                 break;
         }
     }
@@ -172,7 +172,7 @@ public class TaskManager {
 
         for (int i = 0; i < tasksDrawer.length; i++) {
             if (tasksDrawer[i] != "") {
-                System.out.println(count++ + ". " + tasksDrawer[i]);
+                System.out.println("\u001b[1m\u001b[31m " + count++ + "\u001b[0m. " + tasksDrawer[i]);
             }
         }
     }
@@ -182,7 +182,7 @@ public class TaskManager {
 
         for (int i = 0; i < concludedTasks.length; i++) {
             if (!concludedTasks[i].isEmpty()) {
-                System.out.println(count++ + ". " + concludedTasks[i]);
+                System.out.println("\u001b[1m\u001b[32m " + count++ + "\u001b[0m." + concludedTasks[i]);
             }
         }
     }
