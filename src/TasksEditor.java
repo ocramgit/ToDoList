@@ -3,18 +3,18 @@ public class TasksEditor {
 
     public void editTask(String[] task) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Qual o número da task que quer editar?");
+        System.out.println("What task want to edit?");
         int taskNumber = sc.nextInt();
 
         for (int i = 0; i < task.length; i++) {
             if (i + 1 == taskNumber) {
                 if (task[i] != "") {
                     System.out.println(task[i]);
-                    System.out.print("Edite a task: ");
+                    System.out.print("Edit task: ");
                     task[i] = sc.next();
-                    System.out.println("Task editada!");
+                    System.out.println("Task edited!");
                 } else {
-                    System.out.println("Essa task não existe.");
+                    System.out.println("Invalid task.");
                 }
             }
         }
