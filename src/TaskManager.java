@@ -12,6 +12,8 @@ public class TaskManager {
     TaskRemover taskRemover;
     TaskTrash taskTrash;
 
+    Scanner sc;
+
     public TaskManager() {
         tasksCreator = new TasksCreator();
         tasksEditor = new TasksEditor();
@@ -21,6 +23,7 @@ public class TaskManager {
         taskIsConcluded = new TaskIsConcluded();
         taskRemover = new TaskRemover();
         taskTrash = new TaskTrash();
+        sc = new Scanner(System.in);
 
         addEmptyStringsToArray(tasksDrawer, isConcluded);
     }
@@ -29,14 +32,14 @@ public class TaskManager {
         while (programIsRunning) {
             refreshList();
 
-            Scanner sc = new Scanner(System.in);
             System.out.println("1 - CREATE TASK");
             System.out.println("2 - CHECK LIST OF TASKS");
             System.out.println("3 - EDIT TASK");
             System.out.println("4 - SORT TASKS BY ALPHABET");
             System.out.println("5 - MARK TASK AS COMPLETED OR UNCOMPLETED");
             System.out.println("6 - DELETE TASK");
-            System.out.println("7 - QUIT");
+            System.out.println("7 - ADMIN");
+            System.out.println("8 - QUIT");
 
             switch (sc.nextInt()) {
                 case 1:
@@ -57,6 +60,11 @@ public class TaskManager {
                 case 6:
                     removeTask();
                     break;
+                case 7:
+                    admin();
+                    break;
+                case 8:
+                    break;
                 default:
                     System.out.println("Invalid choice!");
                     startTaskManager();
@@ -66,7 +74,6 @@ public class TaskManager {
     }
 
     public void markTask() {
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("1 - MARK TASK AS COMPLETED");
         System.out.println("2 - MARK TASK AS UNCOMPLETED");
@@ -88,8 +95,33 @@ public class TaskManager {
         }
     }
 
+    public void admin() {
+        System.out.println("Password: ");
+        String password = sc.next();
+        String adminPassword = "admin";
+
+        if(password.equals(adminPassword)) {
+            System.out.println("1 - Recover task");
+            System.out.println("2 - Quit");
+
+            switch (sc.nextInt()) {
+                case 1:
+                    taskTrash.recoverTask(this);
+                    break;
+                case 2:
+                    startTaskManager();
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+                    break;
+            }
+        } else {
+            System.out.println("Wrong password!");
+            admin();
+        }
+    }
+
     public void removeTask() {
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("Want remove a:");
         System.out.println("1 - UNCOMPLETED TASK");
@@ -114,8 +146,6 @@ public class TaskManager {
     }
 
     public void checkListOfTasks() {
-
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("1 - List of uncompleted tasks");
         System.out.println("2 - List of completed tasks");

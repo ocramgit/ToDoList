@@ -12,7 +12,7 @@ public class TaskRemover {
         if (!normalTask[userNumber - 1].isEmpty()) {
             taskTrash.deleteTask(normalTask[userNumber - 1]);
             normalTask[userNumber - 1] = "";
-            System.out.println("Task removed" + normalTask[userNumber-1] + "with success!");
+            System.out.println("Task removed with success!");
         } else {
             System.out.println("This task is empty.");
         }
