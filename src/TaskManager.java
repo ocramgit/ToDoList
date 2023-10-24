@@ -5,24 +5,13 @@ public class TaskManager {
     boolean programIsRunning = true;
     String[] tasksDrawer;
     String[] isConcluded;
-    TasksCreator tasksCreator;
-    TasksEditor tasksEditor;
-    TasksSort tasksSort;
-    TaskIsConcluded taskIsConcluded;
-    TaskRemover taskRemover;
-    TaskTrash taskTrash;
-
+    Tasks task;
     Scanner sc;
 
     public TaskManager() {
-        tasksCreator = new TasksCreator();
-        tasksEditor = new TasksEditor();
         tasksDrawer = new String[10];
         isConcluded = new String[10];
-        tasksSort = new TasksSort();
-        taskIsConcluded = new TaskIsConcluded();
-        taskRemover = new TaskRemover();
-        taskTrash = new TaskTrash();
+        task = new Tasks();
         sc = new Scanner(System.in);
 
         addEmptyStringsToArray(tasksDrawer, isConcluded);
@@ -41,32 +30,35 @@ public class TaskManager {
             System.out.println("7 - ADMIN");
             System.out.println("8 - QUIT");
 
-            switch (sc.nextInt()) {
-                case 1:
-                    tasksCreator.createTask(tasksDrawer);
+            String userInput = sc.nextLine();
+
+            switch (userInput.replaceAll("[^a-zA-Z0-9]", "")) {
+                case "1":
+                    task.create(tasksDrawer);
                     break;
-                case 2:
-                    checkListOfTasks();
+                case "2":
+                    task.menuList(tasksDrawer, isConcluded, this);
                     break;
-                case 3:
-                    tasksEditor.editTask(tasksDrawer, this);
+                case "3":
+                    task.edit(tasksDrawer);
                     break;
-                case 4:
-                    tasksSort.sortTasks(tasksDrawer);
+                case "4":
+                    task.sort(tasksDrawer);
                     break;
-                case 5:
+                case "5":
                     markTask();
                     break;
-                case 6:
+                case "6":
                     removeTask();
                     break;
-                case 7:
+                case "7":
                     admin();
                     break;
-                case 8:
+                case "8":
+                    programIsRunning = false;
                     break;
                 default:
-                    System.out.println("Invalid choice!");
+                    System.out.println("\u001b[1m\u001b[31mInvalid choice! Please select a number between 1 and 8.\u001b[0m");
                     startTaskManager();
                     break;
             }
@@ -81,10 +73,10 @@ public class TaskManager {
 
         switch (sc.nextInt()) {
             case 1:
-                taskIsConcluded.markAsConcluded(tasksDrawer, isConcluded, this);
+                task.markAsCompleted(tasksDrawer, isConcluded);
                 break;
             case 2:
-                taskIsConcluded.markAsUncompleted(tasksDrawer, isConcluded, this);
+                task.markAsUncompleted(tasksDrawer, isConcluded);
                 break;
             case 3:
                 startTaskManager();
@@ -106,7 +98,7 @@ public class TaskManager {
 
             switch (sc.nextInt()) {
                 case 1:
-                    taskTrash.recoverTask(this);
+                    task.recover(this);
                     break;
                 case 2:
                     startTaskManager();
@@ -131,10 +123,10 @@ public class TaskManager {
 
         switch (sc.nextInt()) {
             case 1:
-                taskRemover.removeNormalTask(tasksDrawer, this, taskTrash);
+                task.remove(tasksDrawer);
                 break;
             case 2:
-                taskRemover.removeCompletedTask(isConcluded, this, taskTrash);
+                task.removeCompleted(isConcluded);
                 break;
             case 3:
                 break;
@@ -142,48 +134,6 @@ public class TaskManager {
                 System.out.println("\u001b[1m\u001b[31m Invalid choice. \u001b[0m");
                 removeTask();
                 break;
-        }
-    }
-
-    public void checkListOfTasks() {
-
-        System.out.println("1 - List of uncompleted tasks");
-        System.out.println("2 - List of completed tasks");
-        System.out.println("3 - Quit");
-
-
-        switch(sc.nextInt()) {
-            case 1:
-                checkTasksList(tasksDrawer);
-                break;
-            case 2:
-                checkConcludedTaskList(isConcluded);
-                break;
-            case 3:
-                startTaskManager();
-            default:
-                System.out.println("\u001b[1m\u001b[31m Invalid choice. \u001b[0m");
-                break;
-        }
-    }
-
-    public void checkTasksList(String[] tasksDrawer) {
-        int count = 1;
-
-        for (int i = 0; i < tasksDrawer.length; i++) {
-            if (tasksDrawer[i] != "") {
-                System.out.println("\u001b[1m\u001b[31m " + count++ + "\u001b[0m. " + tasksDrawer[i]);
-            }
-        }
-    }
-
-    public void checkConcludedTaskList(String[] concludedTasks) {
-        int count = 1;
-
-        for (int i = 0; i < concludedTasks.length; i++) {
-            if (!concludedTasks[i].isEmpty()) {
-                System.out.println("\u001b[1m\u001b[32m " + count++ + "\u001b[0m." + concludedTasks[i]);
-            }
         }
     }
 
