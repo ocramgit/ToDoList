@@ -1,3 +1,5 @@
+package me.marco;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -29,10 +31,10 @@ public class TaskManager {
             System.out.println("6 - DELETE TASK");
             System.out.println("7 - ADMIN");
             System.out.println("8 - QUIT");
+            System.out.println("");
+            System.out.print("Option: ");
 
-            String userInput = sc.nextLine();
-
-            switch (userInput.replaceAll("[^a-zA-Z0-9]", "")) {
+            switch (sc.next().replaceAll("[^0-9]", "")) {
                 case "1":
                     task.create(tasksDrawer);
                     break;
@@ -71,18 +73,18 @@ public class TaskManager {
         System.out.println("2 - MARK TASK AS UNCOMPLETED");
         System.out.println("3 - QUIT");
 
-        switch (sc.nextInt()) {
-            case 1:
+        switch (sc.next().replaceAll("[^0-9]", "")) {
+            case "1":
                 task.markAsCompleted(tasksDrawer, isConcluded);
                 break;
-            case 2:
+            case "2":
                 task.markAsUncompleted(tasksDrawer, isConcluded);
                 break;
-            case 3:
+            case "3":
                 startTaskManager();
                 break;
             default:
-                System.out.println("Invalid task!");
+                System.out.println("\u001b[1m\u001b[31mInvalid task!\u001b[0m");
                 break;
         }
     }
@@ -104,7 +106,7 @@ public class TaskManager {
                     startTaskManager();
                     break;
                 default:
-                    System.out.println("Invalid choice!");
+                    System.out.println("\u001b[1m\u001b[31mInvalid choice!\u001b[0m");
                     break;
             }
         } else  {

@@ -1,13 +1,15 @@
+package me.marco;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Tasks {
 
-    ArrayList<String> trash = new ArrayList<>();
-    Scanner sc = new Scanner(System.in);
-    int countCreator = 0;
-    int countCompleted = 0;
-    int count = 0;
+    private ArrayList<String> trash = new ArrayList<>();
+    private Scanner sc = new Scanner(System.in);
+    private int countCreator = 0;
+    private int countCompleted = 0;
+    private int count = 0;
 
     public void sort(String[] tasks) {
 
@@ -30,17 +32,11 @@ public class Tasks {
                 }
             }
         }
+        System.out.println("\u001b[1m\u001b[32mList organized.\u001b[0m");
     }
 
-    public void delete(String task) {
+   private void delete(String task) {
         trash.add(task);
-    }
-
-    public void getTrash() {
-        int count = 0;
-        for (String el : trash) {
-            System.out.println(count++ + ": " + el);
-        }
     }
 
     public void recover(TaskManager taskManager) {
@@ -134,7 +130,8 @@ public class Tasks {
 
         for (int i = 0; i < task.length; i++) {
             if (i + 1 == taskNumber) {
-                if (task[i] != "") {
+                boolean tasksExists = task[i] == null;
+                if (!tasksExists) {
                     System.out.print("Edit task: ");
                     task[i] = sc.next();
                     System.out.println("\u001b[1m\u001b[32mTask edited!\u001b[0m");
@@ -211,7 +208,8 @@ public class Tasks {
 
         System.out.println("");
         for (int i = 0; i < tasksDrawer.length; i++) {
-            if (tasksDrawer[i] != "") {
+            boolean tasksExists = tasksDrawer[i] == null;
+            if (!tasksExists) {
                 System.out.println("\u001b[1m\u001b[31m " + count++ + "\u001b[0m. " + tasksDrawer[i]);
             }
         }
