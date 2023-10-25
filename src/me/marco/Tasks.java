@@ -9,7 +9,6 @@ public class Tasks {
     private Scanner sc = new Scanner(System.in);
     private int countCreator = 0;
     private int countCompleted = 0;
-    private int count = 0;
 
     public void sort(String[] tasks) {
 
@@ -39,18 +38,25 @@ public class Tasks {
         trash.add(task);
     }
 
-    public void recover(TaskManager taskManager) {
+    public void recover(TaskManager taskManager) {;
         int count = 0;
         for (String el : trash) {
             System.out.println(count++ + ": " + el);
         }
         System.out.println("Select the number of task to recover it.");
+        int userInput = sc.nextInt();
 
         for (int i = 0; i < taskManager.tasksDrawer.length; i++) {
+        if(trash.size() >= userInput-1) {
             if (taskManager.tasksDrawer[i].isEmpty()) {
-                taskManager.tasksDrawer[i] = trash.get(sc.nextInt());
-                System.out.println("\u001b[1m\u001b[32mTask " + i + " recovered!\u001b[0m");
+                taskManager.tasksDrawer[i] = trash.get(userInput);
+                trash.remove(userInput);
+                System.out.println("\u001b[1m\u001b[32mTask " + userInput + 1 + " recovered!\u001b[0m");
                 break;
+                }
+            } else {
+            System.out.println("\u001b[1m\u001b[31mYour trash bin don't have any task with that number!\u001b[0m");
+            break;
             }
         }
     }
@@ -107,11 +113,11 @@ public class Tasks {
         int userInput = sc.nextInt();
         int taskNumber = userInput - 1;
 
-        if (countCompleted != 10) {
+        if (countCompleted != 11) {
             if (taskNumber >= 0 && !tasks[taskNumber].isEmpty()) {
-                isConcluded[count] = tasks[taskNumber];
+                isConcluded[countCompleted] = tasks[taskNumber];
                 tasks[taskNumber] = "";
-                count++;
+                countCompleted++;
                 System.out.println("\u001b[1m\u001b[32mMarked as completed. ✅\u001b[0m");
             } else {
                 System.out.println("\u001b[1m\u001b[31mTask not found.\u001b[0m");
@@ -130,7 +136,7 @@ public class Tasks {
 
         for (int i = 0; i < task.length; i++) {
             if (i + 1 == taskNumber) {
-                boolean tasksExists = task[i] == null;
+                boolean tasksExists = task[i] == "";
                 if (!tasksExists) {
                     System.out.print("Edit task: ");
                     task[i] = sc.next();
@@ -153,7 +159,8 @@ public class Tasks {
             create(tasksList);
         } else if (countCreator != 10) {
             for (int i = 0; i < tasksList.length; i++) {
-                if (tasksList[i] == "") {
+                boolean taskExists = tasksList[i] == "";
+                if (taskExists) {
                     tasksList[i] = task;
                     countCreator++;
                     System.out.println("\u001b[1m\u001b[32mTask created with success!\u001b[0m");
@@ -161,7 +168,7 @@ public class Tasks {
                 }
             }
         } else {
-            System.out.println("\u001b[1m\u001b[31m You only have 10 slots on free plan. Remove one task or buy premium.\u001b[0m");
+            System.out.println("\u001b[1m\u001b[31m You only have 10 slots on free plan. Buy premium for \u001b[1m\u001b[40m4.99€\u001b[0m \u001b[1m\u001b[31mto open 50 slots & other features. \u001b[1m\u001b[34mhttps://paypal.me/marcosilva\u001b[0m");
         }
     }
 
@@ -170,7 +177,6 @@ public class Tasks {
         System.out.println("1 - List of tasks");
         System.out.println("2 - List of completed tasks");
         System.out.println("3 - Quit");
-
 
         switch (sc.nextInt()) {
             case 1:
@@ -189,33 +195,33 @@ public class Tasks {
     }
 
     public void checkCompletedList(String[] concludedTasks) {
-        int count = 1;
+        int countCompletedList = 1;
 
-        System.out.println("");
+        System.out.println();
         for (int i = 0; i < concludedTasks.length; i++) {
             if (!concludedTasks[i].isEmpty()) {
-                System.out.println("\u001b[1m\u001b[32m " + count++ + "\u001b[0m." + concludedTasks[i]);
+                System.out.println("\u001b[1m\u001b[32m " + countCompletedList++ + "\u001b[0m. " + concludedTasks[i]);
             }
         }
-        System.out.println("");
-        if (count < 2) {
+        System.out.println();
+        if (countCompletedList < 2) {
             System.out.println("\u001b[1m\u001b[31m Empty list!\u001b[0m");
         }
     }
 
     public void checkList(String[] tasksDrawer) {
-        int count = 1;
+        int countCheckList = 1;
 
-        System.out.println("");
+        System.out.println();
         for (int i = 0; i < tasksDrawer.length; i++) {
-            boolean tasksExists = tasksDrawer[i] == null;
+            boolean tasksExists = tasksDrawer[i] == "";
             if (!tasksExists) {
-                System.out.println("\u001b[1m\u001b[31m " + count++ + "\u001b[0m. " + tasksDrawer[i]);
+                System.out.println("\u001b[1m\u001b[31m " + countCheckList++ + "\u001b[0m. " + tasksDrawer[i]);
             }
         }
-        System.out.println("");
+        System.out.println();
 
-        if (count < 2) {
+        if (countCheckList < 2) {
             System.out.println("\u001b[1m\u001b[31m Empty list!\u001b[0m");
         }
     }

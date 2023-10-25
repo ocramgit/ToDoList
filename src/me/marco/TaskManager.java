@@ -98,11 +98,11 @@ public class TaskManager {
             System.out.println("1 - Recover task");
             System.out.println("2 - Quit");
 
-            switch (sc.nextInt()) {
-                case 1:
+            switch (sc.next().replaceAll("[^0-9]", "")) {
+                case "1":
                     task.recover(this);
                     break;
-                case 2:
+                case "2":
                     startTaskManager();
                     break;
                 default:
@@ -123,14 +123,14 @@ public class TaskManager {
         System.out.println("3 - EXIT");
         System.out.println("Choice: ");
 
-        switch (sc.nextInt()) {
-            case 1:
+        switch (sc.next().replaceAll("[^0-9]", "")) {
+            case "1":
                 task.remove(tasksDrawer);
                 break;
-            case 2:
+            case "2":
                 task.removeCompleted(isConcluded);
                 break;
-            case 3:
+            case "3":
                 break;
             default:
                 System.out.println("\u001b[1m\u001b[31m Invalid choice. \u001b[0m");
